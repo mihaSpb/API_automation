@@ -6,14 +6,17 @@ class TestCreateJoke():
 
     base_url = "https://api.chucknorris.io/jokes/random"
 
+    def __init__(self, category: str):
+        self.category = category
+
     def test_create_random_joke(self):
 
-        category = 'movie'
-        params = {'category': category}
+        params = {'category': self.category}
+        print(f"Requesting joke in category {self.category}")
 
         response = requests.get(self.base_url, params=params)
         print(f"Status code: {response.status_code}")
-        assert response.status_code == 200
+        assert response.status_code == 200, (f"Expected status code 200, got {response.status_code}")
         print("Status code is expected")
 
         data = response.json()
@@ -22,7 +25,7 @@ class TestCreateJoke():
         categories = data.get('categories', [])
         print(f"Categories in response: {categories}")
         assert isinstance(categories, list), f"'categories' should be a list {type(categories)}"
-        assert category in categories, f"Expected category '{category}' to be in '{categories}'"
+        assert self.category in categories, f"Expected category '{self.category}' to be in '{categories}'"
         print("Category is expected")
 
         joke_text = data.get('value', "")
@@ -30,10 +33,10 @@ class TestCreateJoke():
         print("Next check passed: contains 'Chuck'")
 
         print(f"Joke text: {joke_text}")
-        assert joke_text
+        assert joke_text, "Joke text should not be empty"
 
         print("All tests passed")
 
-start = TestCreateJoke()
+start = TestCreateJoke(category = "dev")
 start.test_create_random_joke()
 
