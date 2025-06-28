@@ -4,6 +4,7 @@ import requests
 
 class TestCreateJoke():
 
+
     base_url = "https://api.chucknorris.io/jokes/random"
 
     def __init__(self, category: str):
@@ -16,7 +17,7 @@ class TestCreateJoke():
 
         response = requests.get(self.base_url, params=params)
         print(f"Status code: {response.status_code}")
-        assert response.status_code == 200, (f"Expected status code 200, got {response.status_code}")
+        assert response.status_code == 200, f"Expected status code 200, got {response.status_code}"
         print("Status code is expected")
 
         data = response.json()
@@ -31,12 +32,8 @@ class TestCreateJoke():
         joke_text = data.get('value', "")
         assert 'Chuck' in joke_text, f"'Chuck' not found in joke: '{joke_text}'"
         print("Next check passed: contains 'Chuck'")
-
-        print(f"Joke text: {joke_text}")
-        assert joke_text, "Joke text should not be empty"
-
         print("All tests passed")
 
-start = TestCreateJoke(category = "dev")
+start = TestCreateJoke('dev')
 start.test_create_random_joke()
 
