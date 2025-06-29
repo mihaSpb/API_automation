@@ -34,6 +34,5 @@ class TestCreateJokeCategory():
             print(json.dumps(joke, ensure_ascii = False, indent=2))
 
 
-
 start = TestCreateJokeCategory()
 start.test_random_joke_for_each_category()
