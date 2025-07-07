@@ -46,11 +46,14 @@ class TestCreateJokeCategory():
         for category in self.get_all_categories():
             self.test_random_joke(category)
 
+    def test_user_joke_category(self):
+        user_category = input("Введите имя категории, для получения рандомной шутки из неё: ").strip()
+        all_cats = start.get_all_categories()
+        if user_category not in all_cats:
+            print(f"Категория '{user_category}' не существует. Существующие категории: {all_cats}")
+        else:
+            start.test_random_joke(user_category)
+
 
 start = TestCreateJokeCategory()
-user_category = input("Введите имя категории, для получения рандомной шутки из неё: ").strip()
-all_cats = start.get_all_categories()
-if user_category not in all_cats:
-    print(f"Категория '{user_category}' не существует. Существующие категории: {all_cats}")
-else:
-    start.test_random_joke(user_category)
+start.test_user_joke_category()
