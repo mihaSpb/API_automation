@@ -24,12 +24,14 @@ class TestCreatePlaceID():
         }
 
         result_put = requests.put(put_url, json=json_put_location)
-        print(f"Result PUT: {result_put}")
         assert result_put.status_code == 200, f"Status code is not correct: {result_put.status_code}"
         print(f"Status code: {result_put.status_code}")
 
         check_response_put = result_put.json()
-
+        msg = check_response_put['msg']
+        print(msg)
+        assert msg == 'Address successfully updated', f"Status code is not correct: {msg}"
+        print(f"MSG is correct")
 
     def _create_new_location(self) -> str:
         post_url = self.base_url + self.post_resource + self.key_id
@@ -76,18 +78,24 @@ class TestCreatePlaceID():
 
     def test_create_and_verify_place(self, count: int = 5, filename: str = "place_id.txt"):
         places_id: List[str] = [self._create_new_location() for _ in range(count)]
-
         with open(filename, 'w') as f:
             for plid in places_id:
                 f.write(plid + "\n")
         print(f"Saved {len(places_id)} places ID to {filename}")
 
-        with open(filename, 'r') as f:
-            for line in f:
-                plid = line.strip()
-                data = self._get_location(plid)
-                assert data is not None, f"No data found"
-                print(f"Added place {plid} is correct")
+        for pid in places_id:
+            orig_address = self._get_location(pid)
+            old_address = orig_address.get('address')
+            print(f"Old address: {old_address}")
+
+            # Обновление адреса
+            self._put_new_address(pid, self.new_address)
+
+            # Проверяем изменение адреса
+            updated_address = self._get_location(pid)
+            assert updated_address.get('address') == self.new_address, (f"Expected update address: '{self.new_address}',"
+                                                                        f" got {updated_address.get('address')}")
+        print("All place created, updated and verified successfully")
 
 
 start = TestCreatePlaceID()
