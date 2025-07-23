@@ -13,7 +13,7 @@ class TestCreatePlaceID():
     key_id = "?key=qaclick123"
     new_address = '24 Tamar Mepe str, RU'
 
-    def _put_new_address(self, place_id: str, new_address: str):
+    def _put_new_address(self, place_id: str, new_address: str) -> None:
         put_url = self.base_url + self.put_resourse + self.key_id
         print(put_url)
 
@@ -76,7 +76,7 @@ class TestCreatePlaceID():
         print(f"Added place {place_id}: {json.dumps(data, indent = 2)}")
         return data
 
-    def test_create_and_verify_place(self, count: int = 5, filename: str = "place_id.txt"):
+    def test_create_and_verify_place(self, count: int = 5, filename: str = "place_id.txt") -> None:
         places_id: List[str] = [self._create_new_location() for _ in range(count)]
         with open(filename, 'w') as f:
             for plid in places_id:
