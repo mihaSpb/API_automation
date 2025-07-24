@@ -4,8 +4,6 @@ from typing import List
 
 
 class TestCreatePlaceID():
-
-
     base_url = 'https://rahulshettyacademy.com'
     post_resource = '/maps/api/place/add/json'
     get_resource = '/maps/api/place/get/json'

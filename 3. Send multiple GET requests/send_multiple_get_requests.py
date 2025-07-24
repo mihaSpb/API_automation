@@ -3,9 +3,7 @@ import requests
 from typing import List
 
 
-class TestCreateJokeCategory():
-
-
+class TestCreateJokeCategory:
     base_url = "https://api.chucknorris.io/"
 
     def test_random_joke(self, category: str):

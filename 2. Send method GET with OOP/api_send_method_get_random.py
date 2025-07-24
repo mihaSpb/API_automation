@@ -2,7 +2,7 @@ import json
 import requests
 
 
-class TestCreateJoke():
+class TestCreateJoke:
 
 
     base_url = "https://api.chucknorris.io/jokes/random"

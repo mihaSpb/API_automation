@@ -3,9 +3,7 @@ import requests
 from typing import List
 
 
-class TestCreatePlaceID():
-
-
+class TestCreatePlaceID:
     base_url = 'https://rahulshettyacademy.com'
     post_resource = '/maps/api/place/add/json'
     get_resource = '/maps/api/place/get/json'
@@ -13,7 +11,6 @@ class TestCreatePlaceID():
     delete_resourse = '/maps/api/place/delete/json'
     key_id = "?key=qaclick123"
     new_address = '24 Tamar Mepe str, RU'
-
 
     def _delete_location(self, place_id: str) -> None:
         delete_url = self.base_url + self.delete_resourse + self.key_id
@@ -41,9 +38,9 @@ class TestCreatePlaceID():
         check_response_get = result_get.json()
         msg = check_response_get.get('msg')
         print(msg)
-        assert msg == "Get operation failed, looks like place_id  doesn't exists", f"MSG is not correct: {check_response_get.get('msg')}"
+        assert msg == "Get operation failed, looks like place_id  doesn't exists", \
+            f"MSG is not correct: {check_response_get.get('msg')}"
         print('Response MSG is correct')
-
 
     def _put_new_address(self, place_id: str, new_address: str) -> None:
         put_url = self.base_url + self.put_resourse + self.key_id
@@ -152,8 +149,7 @@ class TestCreatePlaceID():
         with open(new_file, 'w') as f_new:
             for pid in existing_address:
                 f_new.write(pid + "\n")
-        print((f"Saved {len(existing_address)} addresses to {new_file}"))
-
+        print(f"Saved {len(existing_address)} addresses to {new_file}")
 
         print("All tests completed")
 
